@@ -17,10 +17,19 @@ class CRP_Output {
                 'order_by' => 'title',
                 'order' => 'ASC',
                 'none_text' => __( 'None found', 'custom-related-posts' ),
+                'filter_by' => __( 'Filter by', 'custom-related-posts' ),
             ), $args
         );
 
+
         $relations = CustomRelatedPosts::get()->relations_to( $post_id );
+
+        $filter_by = $args['filter_by'];
+        if ( $filter_by != '' ) {
+            $relations = array_filter($relations, function( $relation ) use ($filter_by) {
+                return $relation['post_type'] === $filter_by;
+            });
+        }
 
         // Sort relations
         if( $args['order_by'] == 'title' ) {
