@@ -23,11 +23,17 @@ class CRP_Widget extends WP_Widget {
 
     public function form( $instance )
     {
+
+        // Post types for search.
+        $all_post_types = get_post_types( '', 'objects' );
+        $search_post_types = CustomRelatedPosts::setting( 'general_post_types' );
+
         // Parameters
         $title = isset( $instance['title'] ) ? $instance['title'] : __( 'Related Posts', 'custom-related-posts' );
         $order_by = isset( $instance['order_by'] ) ? $instance['order_by'] : 'date';
         $order = isset( $instance['order'] ) ? $instance['order'] : 'DESC';
         $none_text = isset( $instance['none_text'] ) ? $instance['none_text'] : __( 'None found', 'custom-related-posts' );
+        $filter_by = isset( $instance['filter_by'] ) ? $instance['filter_by'] : '';
 
         // Options
         $order_by_options = array(
@@ -39,6 +45,10 @@ class CRP_Widget extends WP_Widget {
             'ASC' => __( 'ascending', 'custom-related-posts' ),
             'DESC' => __( 'descending', 'custom-related-posts' ),
         );
+        $filter_by_option = array(
+            'none' => __( '', 'custom-related-posts' ),
+        );
+        $filter_by_option += array_combine($search_post_types, $search_post_types);
         ?>
         <p>
             <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
@@ -67,6 +77,17 @@ class CRP_Widget extends WP_Widget {
             </select>
         </p>
         <p>
+            <label for="<?php echo $this->get_field_id( 'filter_by' ); ?>"><?php _e( 'Filter', 'custom-related-posts' ); ?>:</label>
+            <select name="<?php echo $this->get_field_name( 'filter_by' ); ?>" id="<?php echo $this->get_field_id( 'filter_by' ); ?>" class="widefat">
+                <?php
+                foreach ( $filter_by_option as $value => $name ) {
+                    $selected = $filter_by == $value ? ' selected="selected"' : '';
+                    echo '<option value="' . $value . '" id="' . $value . '"' . $selected . '>' . $name . '</option>';
+                }
+                ?>
+            </select>
+        </p>
+        <p>
             <label for="<?php echo $this->get_field_id( 'none_text' ); ?>"><?php _e( 'No related posts text' ); ?>:</label>
             <input class="widefat" id="<?php echo $this->get_field_id( 'none_text' ); ?>" name="<?php echo $this->get_field_name( 'none_text' ); ?>" type="text" value="<?php echo esc_attr( $none_text ); ?>">
             <?php _e( 'Leave blank to hide widget when there are no related posts.', 'custom-related-posts' ); ?>
@@ -81,6 +102,7 @@ class CRP_Widget extends WP_Widget {
         $instance['order_by'] = ( !empty( $new_instance['order_by'] ) ) ? strip_tags( $new_instance['order_by'] ) : 'date';
         $instance['order'] = ( !empty( $new_instance['order'] ) ) ? strip_tags( $new_instance['order'] ) : 'DESC';
         $instance['none_text'] = ( !empty( $new_instance['none_text'] ) ) ? strip_tags( $new_instance['none_text'] ) : '';
+        $instance['filter_by'] = ( !empty( $new_instance['filter_by'] ) ) ? strip_tags( $new_instance['filter_by'] ) : '';
 
         return $instance;
     }

@@ -92,6 +92,7 @@ class CRP_Relations {
             'permalink' => get_permalink( $post ),
             'status' => $post->post_status,
             'date' => $post->post_date,
+            'post_type' => $post->post_type,
         );
     }
 
