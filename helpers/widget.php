@@ -23,11 +23,10 @@ class CRP_Widget extends WP_Widget {
 
     public function form( $instance )
     {
-
         // Post types for search.
         $all_post_types = get_post_types( '', 'objects' );
         $search_post_types = CustomRelatedPosts::setting( 'general_post_types' );
-
+        
         // Parameters
         $title = isset( $instance['title'] ) ? $instance['title'] : __( 'Related Posts', 'custom-related-posts' );
         $order_by = isset( $instance['order_by'] ) ? $instance['order_by'] : 'date';
@@ -39,6 +38,7 @@ class CRP_Widget extends WP_Widget {
         $order_by_options = array(
             'title' => __( 'Title', 'custom-related-posts' ),
             'date' => __( 'Date', 'custom-related-posts' ),
+            'custom' => __( 'Custom', 'custom-related-posts' ),
             'rand' => __( 'Random', 'custom-related-posts' ),
         );
         $order_options = array(

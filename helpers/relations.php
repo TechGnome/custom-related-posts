@@ -33,6 +33,9 @@ class CRP_Relations {
             }
 
             if( $to ) {
+                // Default order to last item.
+                $target_data['order'] = count( $base_relations_to );
+
                 $base_relations_to[$target_id] = $target_data;
                 $target_relations_from[$base_id] = $base_data;
 
@@ -79,6 +82,36 @@ class CRP_Relations {
                     $this->update_from( $target_id, $target_relations_from );
                 }
             }
+        }
+    }
+
+    public function set_order( $base_id, $order )
+    {
+        $base = get_post( $base_id );
+
+        if( is_object( $base ) ) {
+            $base_relations_to = $this->get_to( $base_id );
+            $ordered_relations = array();
+
+            $index = 0;
+            foreach ( $order as $id ) {
+                if ( isset( $base_relations_to[ $id ] ) ) {
+                    $ordered_relations[ $id ] = $base_relations_to[ $id ];
+                    $ordered_relations[ $id ]['order'] = $index;
+                    $index++;
+                }
+            }
+
+            // Set max order, if anything is missing.
+            foreach ( $base_relations_to as $id => $relation ) {
+                if ( ! isset( $ordered_relations[ $id ] ) ) {
+                    $ordered_relations[ $id ] = $relation;
+                    $ordered_relations[ $id ]['order'] = $index;
+                    $index++;
+                }
+            }
+
+            $this->update_to( $base_id, $ordered_relations );
         }
     }
 
@@ -139,11 +172,18 @@ class CRP_Relations {
         if ( ! CustomRelatedPosts::setting( 'cache_relations' ) ) {
             foreach ( $relations as $id => $relation ) {
                 $updated_relations[ $id ] = $this->get_data( $id );
+
+                // Make sure order is set.
+                $updated_relations[ $id ]['order'] = isset( $relation['order'] ) ? $relation['order'] : 0;
             }
         } else {
-            // Make sure ID is set (wasn't saved in early versions).
+            // Make sure ID and order are set (wasn't saved in early versions).
             foreach ( $relations as $id => $relation ) {
                 $updated_relations[ $id ]['id'] = $id;
+                
+                if ( ! isset( $updated_relations[ $id ]['order'] ) ) {
+                    $updated_relations[ $id ]['order'] = 0;
+                }
             }
         }
 

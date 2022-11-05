@@ -113,6 +113,18 @@ $settings_structure = array(
                             'type' => 'inverse',
                         ),
                     ),
+                    array(
+                        'id' => 'template_image_nopin',
+                        'name' => __( 'Disable pinning of images', 'custom-related-posts' ),
+                        'description' => __( 'Add the nopin attribute to the related posts images.', 'custom-related-posts' ),
+                        'type' => 'toggle',
+                        'default' => true,
+                        'dependency' => array(
+                            'id' => 'template_image',
+                            'value' => 'none',
+                            'type' => 'inverse',
+                        ),
+                    ),
                 ),
             ),
             array(

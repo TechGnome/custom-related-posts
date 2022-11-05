@@ -18,7 +18,33 @@ registerStore( 'custom-related-posts', {
             case 'SET_RELATIONS':
                 newState.relations = action.relations;
                 return newState;
+			case 'SET_ORDER':
+				let orderedRelations = {};
 
+				let index = 0;
+				for ( let id of action.order ) {
+					if ( state.relations.to.hasOwnProperty( id ) ) {
+						orderedRelations[ id ] = {
+							...state.relations.to[id],
+							order: index,
+						};
+						index++;
+					}
+				}
+
+				// Make sure every relation stays.
+				for ( let id of Object.keys( state.relations.to ) ) {
+					if ( ! orderedRelations.hasOwnProperty( id ) ) {
+						orderedRelations[ id ] = {
+							...state.relations.to[id],
+							order: index,
+						};
+					}
+				}
+
+				newState.relations.to = orderedRelations;
+
+				return newState;
 			case 'ADD_RELATION_TO':
                 newState.relations.to[action.post.id] = action.post;
 				return newState;
@@ -50,6 +76,14 @@ registerStore( 'custom-related-posts', {
 				type: 'SET_RELATIONS',
 				relations,
 			};
+		},
+		setOrder( postId, order ) {
+			Data.setOrder( postId, order );
+
+			return {
+				type: 'SET_ORDER',
+				order,
+			}
 		},
 		addRelationTo( postId, post ) {
 			Data.saveRelation( postId, post.id, 'to' );

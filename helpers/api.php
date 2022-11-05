@@ -29,6 +29,16 @@ class CRP_Api {
                 ),
                 'permission_callback' => '__return_true',
             ));
+            register_rest_route( 'custom-related-posts/v1', '/relations/(?P<id>\d+)/order', array(
+				'callback' => array( $this, 'api_set_relations_order' ),
+				'methods' => 'PUT',
+				'args' => array(
+					'id' => array(
+						'validate_callback' => array( $this, 'api_validate_numeric' ),
+					),
+                ),
+                'permission_callback' => '__return_true',
+            ));
             register_rest_route( 'custom-related-posts/v1', '/relations/(?P<id>\d+)', array(
 				'callback' => array( $this, 'api_remove_relation' ),
 				'methods' => 'DELETE',
@@ -66,6 +76,18 @@ class CRP_Api {
             $to = 'to' === $type || 'both' === $type ? true : false;
 
             CustomRelatedPosts::get()->helper( 'relations' )->add_relation( $base_id, $target_id, $from, $to );
+        }
+
+        return $this->api_get_relations( $request );
+    }
+
+    public function api_set_relations_order( $request ) {
+        $base_id = $request['id'];
+
+        if ( current_user_can( 'edit_post', $base_id ) ) {
+            $order = $request['order'];
+
+            CustomRelatedPosts::get()->helper( 'relations' )->set_order( $base_id, $order );
         }
 
         return $this->api_get_relations( $request );

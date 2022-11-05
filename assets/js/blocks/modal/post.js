@@ -18,6 +18,11 @@ function Post( props ) {
 		linked = 'from';
 	}
 
+	let orderedPost = {
+		...post,
+		order: relationToIDs.length,
+	}
+
 	return (
 		<tr>
 			<td>{ post.post_type }</td>
@@ -28,27 +33,27 @@ function Post( props ) {
 					'both' === linked
 					?
 					<Button
-						isDefault={true}
+						variant="secondary"
 						disabled={true}
 					>{ __( 'Already linked' ) }</Button>
 					:
 					<Fragment>
 						<Button
 							className="crp-add-relations-button-to"
-							isDefault={true}
+							variant="secondary"
 							disabled={ false !== linked }
-							onClick={ () => props.onAddRelationTo( post ) }
+							onClick={ () => props.onAddRelationTo( orderedPost ) }
 						>{ __( 'To' ) }</Button>
 						<Button
 							className="crp-add-relations-button-both"
 							isPrimary={true}
-							onClick={ () => props.onAddRelationBoth( post ) }
+							onClick={ () => props.onAddRelationBoth( orderedPost ) }
 						>{ __( 'Both' ) }</Button>
 						<Button
 							className="crp-add-relations-button-from"
-							isDefault={true}
+							variant="secondary"
 							disabled={ false !== linked }
-							onClick={ () => props.onAddRelationFrom( post ) }
+							onClick={ () => props.onAddRelationFrom( orderedPost ) }
 						>{ __( 'From' ) }</Button>
 					</Fragment>
 				}

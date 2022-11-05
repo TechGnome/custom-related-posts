@@ -21,7 +21,6 @@ class CRP_Output {
             ), $args
         );
 
-
         $relations = CustomRelatedPosts::get()->relations_to( $post_id );
 
         $filter_by = $args['filter_by'];
@@ -36,9 +35,13 @@ class CRP_Output {
             usort( $relations, array( $this, 'sortByTitle' ) );
         } elseif( $args['order_by'] == 'date' ) {
             usort( $relations, array( $this, 'sortByDate' ) );
-        } else {
+        } elseif( $args['order_by'] == 'custom' ) {
+            usort( $relations, array( $this, 'sortByOrder' ) );
+        } elseif( $args['order_by'] == 'rand' ) {
             shuffle( $relations );
         }
+
+        // echo '<pre>' . var_export( $relations, true ) . '</pre>';
 
         if( $args['order'] == 'DESC') {
             $relations = array_reverse( $relations, true );
@@ -80,12 +83,17 @@ class CRP_Output {
 
     public function sortByTitle( $a, $b )
     {
-        return $a['title'] > $b['title'];
+        return strcmp( $a['title'], $b['title'] );
     }
 
     public function sortByDate( $a, $b )
     {
-        return $a['date'] > $b['date'];
+        return strtotime( $a['date'] ) - strtotime( $b['date'] );
+    }
+
+    public function sortByOrder( $a, $b )
+    {
+        return $a['order']- $b['order'];
     }
 
     public function output_relations( $relations, $post_id = false ) {
@@ -140,6 +148,11 @@ class CRP_Output {
                     } else {
                         $image = str_ireplace( '<img ', '<img style="' . $style . '" ', $image );
                     }
+                }
+
+                // Disable image pinning.
+                if ( CustomRelatedPosts::setting( 'template_image_nopin' ) ) {
+                    $image = str_ireplace( '<img ', '<img data-pin-nopin="true" ', $image );
                 }
 
                 $classes[] = 'crp-list-item-has-image';

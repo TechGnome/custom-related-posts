@@ -47,6 +47,12 @@ Yes! We pride ourselves on offering awesome support and almost always answer sup
 
 == Changelog ==
 
+= 1.7.0 =
+* Feature: Manually set order for related posts (Block Editor only)
+* Feature: Setting to disable pinning of related posts images
+* Improvement: Image responsive sizing in some situations
+* Fix: Prevent PHP 8 deprecation notice related to usort
+
 = 1.6.6 =
 * Fix: Block editor preview broken in WordPress 5.8
 
@@ -102,6 +108,9 @@ Yes! We pride ourselves on offering awesome support and almost always answer sup
 * Very first version of this plugin
 
 == Upgrade notice ==
+= 1.7.0 =
+Ability to manually set related posts order and better PHP 8 compatibility
+
 = 1.6.6 =
 Update to ensure WordPress 5.8 compatibility
 

@@ -93,8 +93,6 @@ let Metabox = {
                 term: search_term,
                 base: Metabox.post_id
             };
-
-            console.log( data );
     
             jQuery.post(crp_admin.ajax_url, data, function(posts) {
                 Metabox.search_button.removeClass('crp_spinner');

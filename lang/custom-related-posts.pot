@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Custom Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-14 13:51+0000\n"
+"POT-Creation-Date: 2022-09-06 08:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -25,6 +25,10 @@ msgid "Add Relation"
 msgstr ""
 
 #: helpers/settings_structure.php:119
+msgid "Add the nopin attribute to the related posts images."
+msgstr ""
+
+#: helpers/settings_structure.php:131
 msgid "Advanced"
 msgstr ""
 
@@ -40,7 +44,7 @@ msgstr ""
 msgid "Any"
 msgstr ""
 
-#: helpers/widget.php:39
+#: helpers/widget.php:40
 msgid "ascending"
 msgstr ""
 
@@ -68,12 +72,16 @@ msgstr ""
 msgid "Container"
 msgstr ""
 
-#: helpers/settings_structure.php:123
+#: helpers/settings_structure.php:135
 msgid "CSS"
 msgstr ""
 
 #: helpers/ajax.php:71
 msgid "Current post"
+msgstr ""
+
+#: helpers/widget.php:36
+msgid "Custom"
 msgstr ""
 
 #. Name of the plugin
@@ -84,8 +92,12 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: helpers/widget.php:40
+#: helpers/widget.php:41
 msgid "descending"
+msgstr ""
+
+#: helpers/settings_structure.php:118
+msgid "Disable pinning of images"
 msgstr ""
 
 #: helpers/settings_structure.php:6 helpers/plugin_action_link.php:13
@@ -133,15 +145,15 @@ msgstr ""
 msgid "Image Size"
 msgstr ""
 
-#: helpers/settings_structure.php:139
+#: helpers/settings_structure.php:151
 msgid "Import from XML"
 msgstr ""
 
-#: helpers/settings_structure.php:135
+#: helpers/settings_structure.php:147
 msgid "Import Relations"
 msgstr ""
 
-#: helpers/settings_structure.php:142 addons/import-xml/import-xml.php:18 
+#: helpers/settings_structure.php:154 addons/import-xml/import-xml.php:18 
 #: addons/import-xml/import-xml.php:18 addons/import-xml/import-xml.php:30 
 #: addons/import-xml/import-xml.php:30 
 #: addons/import-xml/templates/before_importing.php:4 
@@ -158,7 +170,7 @@ msgid ""
 "It's a good idea to backup your WP database before using the import feature."
 msgstr ""
 
-#: helpers/widget.php:72
+#: helpers/widget.php:73
 msgid "Leave blank to hide widget when there are no related posts."
 msgstr ""
 
@@ -200,11 +212,11 @@ msgstr ""
 msgid "Open links to related posts in a new tab."
 msgstr ""
 
-#: helpers/widget.php:59
+#: helpers/widget.php:60
 msgid "Order"
 msgstr ""
 
-#: helpers/widget.php:48
+#: helpers/widget.php:49
 msgid "Order By"
 msgstr ""
 
@@ -232,7 +244,7 @@ msgstr ""
 msgid "Published only"
 msgstr ""
 
-#: helpers/widget.php:36
+#: helpers/widget.php:37
 msgid "Random"
 msgstr ""
 
@@ -280,7 +292,7 @@ msgstr ""
 msgid "Template"
 msgstr ""
 
-#: helpers/settings_structure.php:124
+#: helpers/settings_structure.php:136
 msgid "This custom styling will be output on your website."
 msgstr ""
 

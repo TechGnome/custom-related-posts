@@ -4,10 +4,23 @@ const {
     TextControl,
     RadioControl,
     Disabled,
-    ServerSideRender,
 } = wp.components;
-const { InspectorControls } = wp.editor;
 const { Component, Fragment } = wp.element;
+
+// Backwards compatibility.
+let InspectorControls;
+if ( wp.hasOwnProperty( 'blockEditor' ) ) {
+	InspectorControls = wp.blockEditor.InspectorControls;
+} else {
+	InspectorControls = wp.editor.InspectorControls;
+}
+
+let ServerSideRender;
+if ( wp.hasOwnProperty( 'serverSideRender' ) ) {
+    ServerSideRender = wp.serverSideRender;
+} else {
+    ServerSideRender = wp.components.ServerSideRender;
+}
 
 import '../../../css/public/output.scss';
 import Data from '../data/helpers';
@@ -26,7 +39,7 @@ class RelatedPostsEdit extends Component {
         );
         const hasRelations = relations.length > 0;
 
-        const inspectorControls = (
+        const sideBar = (
 			<InspectorControls>
 				<PanelBody title={ __( 'Custom Related Posts Settings' ) }>
                     <TextControl
@@ -46,6 +59,7 @@ class RelatedPostsEdit extends Component {
                         options={ [
                             { label: __( 'Title' ), value: 'title' },
                             { label: __( 'Date' ), value: 'date' },
+                            { label: __( 'Custom' ), value: 'custom' },
                             { label: __( 'Random' ), value: 'rand' },
                         ] }
                         onChange={ ( value ) => setAttributes( { order_by: value } ) }
@@ -65,7 +79,7 @@ class RelatedPostsEdit extends Component {
         
         return (
             <Fragment>
-                { inspectorControls }
+                { sideBar }
                 {
                     ! hasRelations && ! none_text
                     ?
