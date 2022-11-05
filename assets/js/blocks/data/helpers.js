@@ -31,6 +31,15 @@ export default {
             },
         } );
     },
+    setOrder: (base, order) => {
+        apiFetch( {
+            path: `custom-related-posts/v1/relations/${ base }/order`,
+            method: 'PUT',
+            data: {
+                order,
+            },
+        } );
+    },
     removeRelation: (base, target, type) => {
         apiFetch( {
             path: `custom-related-posts/v1/relations/${ base }`,

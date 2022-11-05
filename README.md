@@ -32,3 +32,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Included is also [the original readme.txt](readme.txt)
 
+## Changelog
+
+2022-11-05 - Updated base plugin to version 1.7.0
+
+2022-07-25 - Initial development/customization.

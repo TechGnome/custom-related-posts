@@ -127,7 +127,7 @@ class AddRelationModal extends Component {
                             ?
                             <tbody>
                                 <tr>
-                                    <td colspan="4">
+                                    <td colSpan="4">
                                         <em>No posts found.</em>
                                     </td>
                                 </tr>

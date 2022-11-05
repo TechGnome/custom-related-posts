@@ -29,5 +29,9 @@
 
     .crp-list-item-image {
         font-size: 0;
+
+        img {
+            width: 100%;
+        }
     }
 }
